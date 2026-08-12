@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEERGO - Quiz Audio</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://jsdelivr.net"></script>
+</head>
+<body>
+
+    <div class="app-container">
+        <div class="content-section" style="padding-top: 20px;">
+            <div class="section-title" id="streakDisplay">🔥 Streak: 0 jours</div>
+            
+            <!-- Progress Bar -->
+            <div class="progress-bar-container">
+                <div class="progress-bar-fill" id="progressBar"></div>
+            </div>
+
+            <h2>Écoute le mot :</h2>
+            <div class="subtitle">Choisis la bonne traduction en Français.</div>
+
+            <!-- Custom Audio Player Card -->
+            <div class="audio-card">
+                <!-- Voorbeeld MP3 link van een uitgesproken woord -->
+                <audio id="audioPlayer" src="https://w3schools.com"></audio>
+                <button class="btn-primary" id="playBtn" style="margin-top:0; padding: 12px;">🎵 ÉCOUTER L'AUDIO</button>
+                
+                <div class="audio-controls">
+                    <button class="btn-audio active" id="speed1">1.0x (Normal)</button>
+                    <button class="btn-audio" id="speed075">0.75x (Lent)</button>
+                </div>
+            </div>
+
+            <!-- Quiz Meerkeuze -->
+            <div class="quiz-options">
+                <div class="option-card" onclick="checkAnswer(this, false)">Option A: Le chat</div>
+                <div class="option-card" onclick="checkAnswer(this, true)">Option B: Le cheval (Correct)</div>
+                <div class="option-card" onclick="checkAnswer(this, false)">Option C: Le chien</div>
+            </div>
+
+            <button class="btn-primary" style="margin-top: 30px; background: #fff;" onclick="saveScoreToSupabase()">
+                Sauvegarder mon score 💾
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const SUPABASE_URL = "https://supabase.co";
+        const SUPABASE_KEY = "JOUW-ANON-KEY";
+        const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+        // Audio Controls functionaliteit
+        const audio = document.getElementById('audioPlayer');
+        const playBtn = document.getElementById('playBtn');
+        const speed1 = document.getElementById('speed1');
+        const speed075 = document.getElementById('speed075');
+
+        playBtn.addEventListener('click', () => {
+            audio.play();
+        });
+
+        speed1.addEventListener('click', () => {
+            audio.playbackRate = 1.0;
+            speed1.classList.add('active');
+            speed075.classList.remove('active');
+        });
+
+        speed075.addEventListener('click', () => {
+            audio.playbackRate = 0.75;
+            speed075.classList.add('active');
+            speed1.classList.remove('active');
+        });
+
+        // Antwoord check + Haptic Feedback visuele animatie
+        function checkAnswer(element, isCorrect) {
+            if(isCorrect) {
+                element.classList.add('correct-flash');
+                // Haptic feedback simuleren via trilling van de telefoon (indien ondersteund)
+                if (navigator.vibrate) navigator.vibrate([80, 50, 80]);
+                document.getElementById('progressBar').style.width = "100%";
+                alert("Super ! Bon travail.");
+            } else {
+                element.style.borderColor = "#ff4a4a";
+                if (navigator.vibrate) navigator.vibrate(200);
+                alert("Dommage ! Réessaye.");
+            }
+        }
+
+        // Score opslaan in Supabase database
+        async function saveScoreToSupabase() {
+            const { data: { user } } = await supabase.auth.getUser();
+            
+            if(!user) {
+                alert("Connecte-toi d'abord !");
+                return;
+            }
+
+            // Stuurt score naar een tabel genaamd 'scores'
+            const { error } = await supabase.from('scores').insert([
+                { user_id: user.id, score: 10, streak: 1 }
+            ]);
+
+            if (error) {
+                alert("Erreur lors de la sauvegarde: " + error.message);
+            } else {
+                alert("Score et streak enregistrés avec succès ! 🔥");
+            }
+        }
+    </script>
+</body>
+</html>
