@@ -1,0 +1,255 @@
+/* Google Font laden */
+@import url('https://googleapis.com');
+
+:root {
+    --bg-dark: #0B0F19;
+    --cyber-lime: #CEFF00;
+    --text-light: #FFFFFF;
+    --card-bg: #161F30;
+    --border-thick: 3px solid #000000;
+    --shadow-neo: 4px 4px 0px #000000;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Lexend', sans-serif;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-light);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 15px;
+}
+
+/* Container ontworpen voor Mobile-First */
+.app-container {
+    width: 100%;
+    max-width: 420px;
+    background-color: var(--bg-dark);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Grote Lime Header (zoals op foto) */
+.hero-header {
+    background-color: var(--cyber-lime);
+    color: #000000;
+    padding: 30px 20px;
+    border: var(--border-thick);
+    box-shadow: var(--shadow-neo);
+    border-radius: 16px;
+    margin-bottom: 25px;
+}
+
+.brand {
+    font-weight: 900;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 15px;
+}
+
+.brand-box {
+    border: 2px solid #000;
+    padding: 2px 6px;
+    font-weight: 900;
+}
+
+.hero-header h1 {
+    font-size: 2.2rem;
+    font-weight: 900;
+    line-height: 1.1;
+}
+
+.hero-header h1 span {
+    -webkit-text-stroke: 1px #000;
+    color: transparent;
+    display: block;
+}
+
+.sub-tag {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.7;
+    margin-top: 5px;
+}
+
+/* Formulieren & Content */
+.content-section {
+    padding: 10px;
+}
+
+.section-title {
+    color: var(--cyber-lime);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+}
+
+h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.subtitle {
+    font-size: 0.9rem;
+    color: #8A99AD;
+    margin-bottom: 25px;
+}
+
+/* Neo-brutalisme Inputs en Knoppen */
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    font-size: 0.85rem;
+    margin-bottom: 8px;
+    font-weight: 700;
+}
+
+input[type="email"], input[type="password"], input[type="text"] {
+    width: 100%;
+    padding: 14px;
+    background-color: #121826;
+    border: 2px solid #242F47;
+    border-radius: 8px;
+    color: white;
+    font-size: 1rem;
+    transition: all 0.2s;
+}
+
+input:focus {
+    outline: none;
+    border-color: var(--cyber-lime);
+}
+
+.btn-primary {
+    width: 100%;
+    background-color: var(--cyber-lime);
+    color: #000000;
+    border: var(--border-thick);
+    box-shadow: var(--shadow-neo);
+    padding: 16px;
+    font-size: 1rem;
+    font-weight: 900;
+    border-radius: 12px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    transition: transform 0.1s, box-shadow 0.1s;
+    margin-top: 15px;
+}
+
+.btn-primary:active {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0px #000000;
+}
+
+.link-secondary {
+    display: block;
+    text-align: center;
+    color: var(--cyber-lime);
+    font-size: 0.9rem;
+    margin-top: 20px;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+/* Quiz specifieke UI */
+.progress-bar-container {
+    background: #121826;
+    height: 12px;
+    border: 2px solid #000;
+    border-radius: 6px;
+    margin-bottom: 25px;
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    background: var(--cyber-lime);
+    height: 100%;
+    width: 33%; /* Dynamisch via JS */
+    transition: width 0.3s ease;
+}
+
+.audio-card {
+    background: var(--card-bg);
+    border: var(--border-thick);
+    box-shadow: var(--shadow-neo);
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.audio-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.btn-audio {
+    background: #000;
+    color: #fff;
+    border: 2px solid var(--cyber-lime);
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 0.8rem;
+}
+
+.btn-audio.active {
+    background: var(--cyber-lime);
+    color: #000;
+}
+
+.quiz-options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.option-card {
+    background: #121826;
+    border: 2px solid #242F47;
+    border-radius: 12px;
+    padding: 16px;
+    cursor: pointer;
+    font-weight: 700;
+    transition: all 0.2s;
+}
+
+.option-card:hover {
+    border-color: var(--cyber-lime);
+}
+
+/* Juiste antwoord Animatie (Haptic Feedback effect) */
+@keyframes correct-pop {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); background-color: #28a745; border-color: #000; }
+    100% { transform: scale(1); background-color: #28a745; border-color: #000; }
+}
+
+.correct-flash {
+    animation: correct-pop 0.4s ease forwards;
+    color: #000 !important;
+}
