@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEERGO - Connexion</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Supabase CDN -->
+    <script src="https://jsdelivr.net"></script>
+</head>
+<body>
+
+    <div class="app-container">
+        <!-- Lime Groene Top Header -->
+        <div class="hero-header">
+            <div class="brand">
+                <span class="brand-box">N</span> NEER
+            </div>
+            <div class="sub-tag">• CE1D / NEDERLANDS</div>
+            <h1>Écoute.<span>Réponds.</span>Progresse.</h1>
+        </div>
+
+        <!-- Inlog Formulier -->
+        <div class="content-section">
+            <div class="section-title">Ton espace d'entraînement</div>
+            <h2>Content de te revoir.</h2>
+            <div class="subtitle">Prêt·e à garder ta série ?</div>
+
+            <form id="loginForm">
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="email" placeholder="toi@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label>Mot de passe</label>
+                    <input type="password" id="password" placeholder="6 caractères minimum" required>
+                </div>
+                <button type="submit" class="btn-primary">
+                    Entrer dans NEERGO <span>→</span>
+                </button>
+            </form>
+
+            <a href="register.html" class="link-secondary">Je crée mon compte ></a>
+        </div>
+    </div>
+
+    <script>
+        // VUL HIER JOUW SUPABASE CACHET IN
+        const SUPABASE_URL = "https://supabase.co";
+        const SUPABASE_KEY = "JOUW-ANON-KEY";
+        const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            const { data, error } = await supabase.auth.signInWithPassword({
+                email: email,
+                password: password,
+            });
+
+            if (error) {
+                alert("Erreur: " + error.message);
+            } else {
+                // Succesvol ingelogd -> ga naar de quiz
+                window.location.href = 'quiz.html';
+            }
+        });
+    </script>
+</body>
+</html>
